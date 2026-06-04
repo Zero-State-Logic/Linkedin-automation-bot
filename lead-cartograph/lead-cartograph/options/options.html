@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="options.css">
+  <title>Settings — Lead Cartograph</title>
+</head>
+<body>
+  <div class="container">
+    <header class="page-header">
+      <div class="brand-mark">⌖</div>
+      <div>
+        <h1>Lead Cartograph</h1>
+        <p class="tagline">Configuration</p>
+      </div>
+    </header>
+
+    <section class="card">
+      <h2><span class="ordinal">I</span><span>Backend</span></h2>
+
+      <div class="field">
+        <label for="apps-script-url">Apps Script Deployment URL</label>
+        <p class="hint">The Web App URL ending in <code>/exec</code>, pasted from the Apps Script "Deploy" dialog.</p>
+        <input type="url" id="apps-script-url" placeholder="https://script.google.com/macros/s/.../exec" autocomplete="off" spellcheck="false">
+      </div>
+
+      <div class="row">
+        <button class="btn btn-secondary" id="btn-test">Test Connection</button>
+        <span class="conn-result" id="conn-result"></span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2><span class="ordinal">II</span><span>Behavior</span></h2>
+
+      <div class="field">
+        <label for="delay-multiplier">Delay Multiplier</label>
+        <p class="hint">Lower = faster (riskier). Higher = slower (safer). <span class="mono">1.0×</span> is the default.</p>
+        <div class="slider-row">
+          <input type="range" id="delay-multiplier" min="0.5" max="2.0" step="0.1" value="1.0">
+          <span class="mono mult-value" id="delay-multiplier-value">1.0×</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="max-links">Max Links Per Session</label>
+        <p class="hint">Safety cap on extraction runs. Stops at this number even if "All" was selected.</p>
+        <input type="number" id="max-links" min="10" max="5000" value="500">
+      </div>
+    </section>
+
+    <section class="card">
+      <h2><span class="ordinal">III</span><span>Capella Year Range</span></h2>
+      <p class="hint card-hint">By default the range is (current year − 1) → (current year + 1). Override only if you need a wider or narrower window.</p>
+
+      <div class="field">
+        <div class="radio-stack">
+          <label class="radio">
+            <input type="radio" name="year-mode" value="auto" id="year-auto" checked>
+            <span class="radio-label">Auto-calculate</span>
+            <span class="mono auto-hint" id="auto-hint"></span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="year-mode" value="manual" id="year-manual">
+            <span class="radio-label">Manual override</span>
+          </label>
+        </div>
+        <div class="year-inputs">
+          <input type="number" id="year-start" placeholder="2025" min="2000" max="2099" disabled>
+          <span class="year-sep">to</span>
+          <input type="number" id="year-end" placeholder="2027" min="2000" max="2099" disabled>
+        </div>
+      </div>
+    </section>
+
+    <div class="actions">
+      <button class="btn btn-primary" id="btn-save">Save Settings</button>
+      <button class="btn btn-ghost" id="btn-reset">Reset to Defaults</button>
+    </div>
+
+    <p class="save-status" id="save-status" aria-live="polite"></p>
+  </div>
+
+  <script type="module" src="options.js"></script>
+</body>
+</html>

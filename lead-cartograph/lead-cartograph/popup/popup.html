@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="popup.css">
+  <title>Lead Cartograph</title>
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-mark">⌖</div>
+      <div class="brand-text">
+        <h1 class="brand-name">Lead Cartograph</h1>
+        <p class="brand-tagline">Capella alumni data collector</p>
+      </div>
+    </div>
+    <div class="connection-status" id="conn-status">
+      <span class="dot dot-unknown"></span>
+      <span class="conn-label">checking…</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2 class="panel-title">
+        <span class="ordinal">I</span>
+        <span class="title-text">Extract Links</span>
+      </h2>
+
+      <div class="action-card">
+        <div class="card-header">
+          <h3 class="card-title">My Connections</h3>
+          <p class="card-sub">Sorted by recently added</p>
+        </div>
+        <div class="card-controls">
+          <div class="count-input">
+            <input type="number" id="conn-count" placeholder="50" min="1" max="5000">
+            <span class="input-sep">or</span>
+            <button class="chip" id="conn-all">All</button>
+          </div>
+          <button class="btn btn-primary" data-task="extract_connections">Start</button>
+        </div>
+      </div>
+
+      <div class="action-card">
+        <div class="card-header">
+          <h3 class="card-title">Capella Alumni Page</h3>
+          <p class="card-sub">Year range: <span class="mono" id="year-range">…</span></p>
+        </div>
+        <div class="card-controls">
+          <div class="count-input">
+            <input type="number" id="capella-count" placeholder="500" min="1" max="5000">
+            <span class="input-sep">or</span>
+            <button class="chip" id="capella-all">All</button>
+          </div>
+          <button class="btn btn-primary" data-task="extract_capella_page">Start</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 class="panel-title">
+        <span class="ordinal">II</span>
+        <span class="title-text">Collect Data</span>
+      </h2>
+
+      <button class="btn btn-all" data-task="collect_all">
+        <span class="btn-symbol">⊕</span>
+        <span class="btn-body">
+          <span class="btn-text">Run ALL collectors</span>
+          <span class="btn-sub">Education → Names → Locations → Contact</span>
+        </span>
+      </button>
+
+      <div class="collector-grid">
+        <button class="btn btn-secondary" data-task="collect_education">
+          <span class="btn-symbol">▸</span> Education
+        </button>
+        <button class="btn btn-secondary" data-task="collect_names">
+          <span class="btn-symbol">▸</span> Names
+        </button>
+        <button class="btn btn-secondary" data-task="collect_locations">
+          <span class="btn-symbol">▸</span> Locations
+        </button>
+        <button class="btn btn-secondary" data-task="collect_contact">
+          <span class="btn-symbol">▸</span> Contact Info
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <div class="status-bar">
+      <div class="status-row">
+        <span class="status-label">Status</span>
+        <span class="status-value" id="status-text">Idle</span>
+      </div>
+      <div class="status-row">
+        <span class="status-label">Last run</span>
+        <span class="status-value mono" id="last-run">never</span>
+      </div>
+    </div>
+    <div class="footer-actions">
+      <button class="link-btn" id="open-settings">⚙ Settings</button>
+      <button class="link-btn" id="open-sheet">↗ Open Sheet</button>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

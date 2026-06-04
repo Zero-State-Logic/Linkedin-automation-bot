@@ -1,0 +1,68 @@
+{
+  "manifest_version": 3,
+  "name": "Lead Cartograph",
+  "short_name": "Cartograph",
+  "version": "0.6.0",
+  "description": "Collect Capella University student leads from LinkedIn and sync to Google Sheets.",
+
+  "permissions": [
+    "storage",
+    "tabs",
+    "scripting",
+    "activeTab",
+    "alarms"
+  ],
+
+  "host_permissions": [
+    "https://*.linkedin.com/*",
+    "https://script.google.com/*",
+    "https://script.googleusercontent.com/*"
+  ],
+
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Lead Cartograph",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+
+  "options_page": "options/options.html",
+
+  "content_scripts": [
+    {
+      "matches": ["https://*.linkedin.com/*"],
+      "js": [
+        "content/utils.js",
+        "content/extract-connections.js",
+        "content/extract-capella.js",
+        "content/collect-education.js",
+        "content/collect-name-headline.js",
+        "content/collect-location.js",
+        "content/collect-contact.js",
+        "content/content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+
+  "web_accessible_resources": [
+    {
+      "resources": ["lib/*"],
+      "matches": ["https://*.linkedin.com/*"]
+    }
+  ]
+}
